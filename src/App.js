@@ -15,18 +15,12 @@ function App() {
 
   const graph_size = 30;
 
-  // var mouseDown = false;
   const [mouseDown, setmouseDown] = useState(false);
   document.body.onmousedown = function () {
-    // mouseDown = true;
     setmouseDown(true);
-    // console.log(mouseDown);
   };
   document.body.onmouseup = function () {
-    // setmouseDown(false);
     setmouseDown(false);
-    // mouseDown = false;
-    // console.log(mouseDown);
   };
 
   const arr = [];
@@ -42,7 +36,6 @@ function App() {
   const handleBlocks = (e) => {
     setmode('block');
     setblocks(mode);
-    // console.log(blocks);
   };
 
   const [typeArray, settypeArray] = useState(arr);
@@ -245,7 +238,7 @@ function App() {
         backgroundSize: '100vw 110%',
       }}
     >
-      <div className='title'>Pathfinder</div>
+      <div className='title'>VisualGraph</div>
       {/* <div className='buttons>'></div> */}
 
       <div className='graph_wrapper'>
