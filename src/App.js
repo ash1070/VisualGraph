@@ -102,6 +102,9 @@ function App() {
 
     for (var i = start_node + 1; i < end_node; i++) {
       t++;
+      if (typeArray[Math.floor(i / graph_size)][i % graph_size] == 'black') {
+        break;
+      }
       task2(i, t);
     }
   };
