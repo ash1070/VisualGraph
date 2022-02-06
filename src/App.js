@@ -2,8 +2,6 @@ import './App.scss';
 import react, { useState, useEffect, Fragment } from 'react';
 import GraphNode from './components/GraphNode';
 import background from '../src/assets/images/back_night.jpg';
-// import { selectOptions } from '@testing-library/user-event/dist/select-options';
-// import GradientButton from 'react-native-gradient-buttons';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -112,31 +110,7 @@ function App() {
   function bfs_helper(i, j, t, color) {
     setTimeout(function () {
       typeArray[i][j] = color;
-
-      // var temp_x = i;
-      // var temp_y = j;
-
-      // if (!visited[end[0]][end[1]]) {
-      //   addNode(+(+temp_x - 1), temp_y, visited, queue);
-      // }
-
-      // //down
-      // if (!visited[end[0]][end[1]]) {
-      //   addNode(+(+temp_x + 1), temp_y, visited, queue);
-      // }
-
-      // //left
-      // if (!visited[end[0]][end[1]]) {
-      //   addNode(temp_x, +(+temp_y - 1), visited, queue);
-      // }
-
-      // //right
-      // if (!visited[end[0]][end[1]]) {
-      //   addNode(temp_x, +(+temp_y + 1), visited, queue);
-      // }
-
       setdummy(Math.random());
-      // }
     }, 10 * t);
   }
 
