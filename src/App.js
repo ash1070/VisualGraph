@@ -109,19 +109,49 @@ function App() {
     }
   };
 
-  function bfs_helper(i, j, t) {
+  function bfs_helper(i, j, t, color) {
     setTimeout(function () {
-      typeArray[i][j] = '#3CB371';
+      typeArray[i][j] = color;
+
+      // var temp_x = i;
+      // var temp_y = j;
+
+      // if (!visited[end[0]][end[1]]) {
+      //   addNode(+(+temp_x - 1), temp_y, visited, queue);
+      // }
+
+      // //down
+      // if (!visited[end[0]][end[1]]) {
+      //   addNode(+(+temp_x + 1), temp_y, visited, queue);
+      // }
+
+      // //left
+      // if (!visited[end[0]][end[1]]) {
+      //   addNode(temp_x, +(+temp_y - 1), visited, queue);
+      // }
+
+      // //right
+      // if (!visited[end[0]][end[1]]) {
+      //   addNode(temp_x, +(+temp_y + 1), visited, queue);
+      // }
 
       setdummy(Math.random());
       // }
     }, 10 * t);
   }
 
-  function addNode(i, j, visited, queue) {
+  function addNode(i, j, visited, queue, prev, prev_x, prev_y) {
     if (i >= 0 && i < graph_size && j >= 0 && j < graph_size) {
+      if (i == end[0] && j == end[1]) {
+        prev[i][j] = [prev_x, prev_y];
+        visited[end[0]][end[1]] = true;
+        return;
+      }
+
       if (visited[i][j] == false && typeArray[i][j] != 'black') {
         visited[i][j] = true;
+        prev[i][j] = [prev_x, prev_y];
+        setdummy(Math.random());
         queue.push([i, j]);
       }
     }
@@ -129,26 +159,29 @@ function App() {
 
   const BFSearch = (e) => {
     var t = 1;
-
+    var yellow = '#FFFF33';
+    var green = '#3CB371';
     const queue = [];
     const visited = [];
-
+    const prev = [];
     for (var i = 0; i < graph_size; i++) {
       const temp_v = [];
+      const temp_p = [];
       for (var j = 0; j < graph_size; j++) {
         temp_v.push(false);
+        temp_p.push([-1, -1]);
       }
       visited.push(temp_v);
+      prev.push(temp_p);
     }
-    // typeArray[start_x][start_y] = 'blue';
-    // typeArray[end_x][end_y] = 'red';
+
     setdummy(Math.random());
 
     queue.push([start[0], start[1]]);
 
     while (queue.length > 0) {
       var top = queue.shift();
-      console.log(top);
+      // console.log(top);
       var temp_x = +top[0];
       var temp_y = +top[1];
       visited[+temp_x][+temp_y] = true;
@@ -159,7 +192,7 @@ function App() {
 
       if (!(t == 1)) {
         if (typeArray[start[0]][start[1]] != 'white') {
-          bfs_helper(+temp_x, +temp_y, t);
+          bfs_helper(+temp_x, +temp_y, t, green);
         }
       }
 
@@ -170,16 +203,29 @@ function App() {
       }
 
       //up node
-      addNode(+(+temp_x - 1), temp_y, visited, queue);
+
+      if (!visited[end[0]][end[1]]) {
+        addNode(+(+temp_x - 1), temp_y, visited, queue, prev, +temp_x, temp_y);
+      }
 
       //down
-      addNode(+(+temp_x + 1), temp_y, visited, queue);
+      if (!visited[end[0]][end[1]]) {
+        addNode(+(+temp_x + 1), temp_y, visited, queue, prev, +temp_x, temp_y);
+      }
 
       //left
-      addNode(temp_x, +(+temp_y - 1), visited, queue);
+      if (!visited[end[0]][end[1]]) {
+        addNode(temp_x, +(+temp_y - 1), visited, queue, prev, +temp_x, temp_y);
+      }
 
       //right
-      addNode(temp_x, +(+temp_y + 1), visited, queue);
+      if (!visited[end[0]][end[1]]) {
+        addNode(temp_x, +(+temp_y + 1), visited, queue, prev, +temp_x, temp_y);
+      }
+
+      if (visited[end[0]][end[1]]) {
+        break;
+      }
 
       // //top-left
       // addNode(+(+temp_x - 1), +(+temp_y - 1), visited, queue);
@@ -192,6 +238,20 @@ function App() {
 
       // //bottom-right
       // addNode(+(+temp_x + 1), +(+temp_y + 1), visited, queue);
+    }
+
+    if (visited[end[0]][end[1]]) {
+      var p = prev[end[0]][end[1]];
+
+      while (true) {
+        if (p[0] == start[0] && p[1] == start[1]) {
+          break;
+        }
+
+        bfs_helper(p[0], p[1], t, yellow);
+        t = t + 10;
+        p = prev[p[0]][p[1]];
+      }
     }
   };
 
