@@ -313,7 +313,7 @@ function App() {
             Reset
           </Button>
           <Button onClick={handleBlocks} variant='outlined'>
-            Block
+            Blockss
           </Button>
         </ButtonGroup>
 
